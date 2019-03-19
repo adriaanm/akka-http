@@ -24,7 +24,7 @@ object Dependencies {
   lazy val scalaCheckVersion = settingKey[String]("The version of ScalaCheck to use.")
 
   val Versions = Seq(
-    crossScalaVersions := Seq("2.12.8", "2.11.12", "2.13.0-M5"),
+    crossScalaVersions := Seq("2.13.0-M5-bin-rfck"),
     scalaVersion := crossScalaVersions.value.head,
     scalaCheckVersion := System.getProperty("akka.build.scalaCheckVersion", "1.14.0"),
     scalaTestVersion := "3.0.6",
@@ -38,10 +38,10 @@ object Dependencies {
   }
 
   object Compile {
-    val scalaXml      = "org.scala-lang.modules"      %% "scala-xml"                   % "1.1.1" // Scala License
+    val scalaXml      = "org.scala-lang.modules"      % "scala-xml"                   % "1.1.1" cross CrossVersion.patch // Scala License
 
     // For akka-http spray-json support
-    val sprayJson   = "io.spray"                     %% "spray-json"                   % "1.3.5"       // ApacheV2
+    val sprayJson   = "io.spray"                     % "spray-json"                   % "1.3.5"      cross CrossVersion.patch // ApacheV2
 
     // For akka-http-jackson support
     val jackson     = "com.fasterxml.jackson.core"    % "jackson-databind"             % jacksonVersion // ApacheV2
@@ -64,9 +64,9 @@ object Dependencies {
 
     object Test {
       val junit        = Compile.junit                                                                       % "test" // Common Public License 1.0
-      val scalatest    = Def.setting { "org.scalatest"  %% "scalatest"   % scalaTestVersion.value   % "test" }      // ApacheV2
-      val specs2       = Def.setting { "org.specs2"     %% "specs2-core" % specs2Version.value      % "test" }      // MIT
-      val scalacheck   = Def.setting { "org.scalacheck" %% "scalacheck"  % scalaCheckVersion.value  % "test" }      // New BSD
+      val scalatest    = Def.setting { "org.scalatest"  % "scalatest"   % scalaTestVersion.value   % "test" cross CrossVersion.patch}      // ApacheV2
+      val specs2       = Def.setting { "org.specs2"     % "specs2-core" % specs2Version.value      % "test" cross CrossVersion.patch}      // MIT
+      val scalacheck   = Def.setting { "org.scalacheck" % "scalacheck"  % scalaCheckVersion.value  % "test" cross CrossVersion.patch}      // New BSD
       val junitIntf    = "com.novocode"                % "junit-interface"              % "0.11"             % "test" // MIT
       val sprayJson    = Compile.sprayJson                                                                   % "test" // ApacheV2
 

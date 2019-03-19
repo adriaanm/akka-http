@@ -30,6 +30,7 @@ inThisBuild(Def.settings(
   //  test in assembly := {},
   licenses := Seq("Apache-2.0" -> url("https://opensource.org/licenses/Apache-2.0")),
   description := "Akka Http: Modern, fast, asynchronous, streaming-first HTTP server and client.",
+  javaOptions in Compile := List("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"),
   scalacOptions ++= Seq(
     "-deprecation",
     "-encoding", "UTF-8", // yes, this is 2 args
@@ -47,6 +48,7 @@ inThisBuild(Def.settings(
   Formatting.formatSettings,
   shellPrompt := { s => Project.extract(s).currentProject.id + " > " },
   concurrentRestrictions in Global += Tags.limit(Tags.Test, 1),
+  scalaCompilerBridgeSource := ("org.scala-sbt" % "compiler-interface" % "1.2.5" % "component").sources()
 ))
 
 lazy val root = Project(
@@ -100,18 +102,18 @@ val commonSettings = Seq(
 )
 
 val scalaMacroSupport = Seq(
-  scalacOptions ++= {
-    CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, n)) if n >= 13 =>
-        Seq("-Ymacro-annotations")
-      case _                       =>
-        Seq.empty
-    }
-  },
-  libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
-    case Some((2, n)) if n < 13 => Seq(compilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full))
-    case _                       => Seq.empty
-  }),
+//  scalacOptions ++= {
+//    CrossVersion.partialVersion(scalaVersion.value) match {
+//      case Some((2, n)) if n >= 13 =>
+//        Seq("-Ymacro-annotations")
+//      case _                       =>
+//        Seq.empty
+//    }
+//  },
+//  libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+//    case Some((2, n)) if n < 13 => Seq(compilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full))
+//    case _                       => Seq.empty
+//  }),
 )
 
 

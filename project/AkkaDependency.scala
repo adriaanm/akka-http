@@ -50,7 +50,7 @@ object AkkaDependency {
         project.dependsOn(withConfig)
       } else {
         project.settings(libraryDependencies += {
-          val dep = "com.typesafe.akka" %% module % akkaVersion
+          val dep = "com.typesafe.akka" % module % akkaVersion cross CrossVersion.patch
           val withConfig =
             if (config == "") dep
             else dep % config
